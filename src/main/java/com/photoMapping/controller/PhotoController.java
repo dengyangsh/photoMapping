@@ -1,11 +1,14 @@
 package com.photoMapping.controller;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.photoMapping.service.PhotoServiceApi;
 import com.photoMapping.util.Response;
@@ -22,6 +25,21 @@ public class PhotoController {
 		List<String> provincePhoto = photoServiceApi.provincePhoto(userId, province);
 		Response ok = Response.ok();
 		ok.setBody(provincePhoto);
+		return ok;
+	}
+
+	@RequestMapping(value = "uploadPhoto", method = RequestMethod.POST)
+	public Response uploadPhoto(@RequestParam("photo") MultipartFile photo, String province, Integer userId)
+			throws Exception {
+		// 接受文件
+		String rootPath = "/usr/java/photo";
+		File dir = new File(rootPath + File.separator + "tmpFiles");
+		if (!dir.exists())
+			dir.mkdirs();
+		// 写文件到服务器
+		File serverFile = new File(dir.getAbsolutePath() + File.separator + photo.getOriginalFilename());
+		photo.transferTo(serverFile);
+		Response ok = Response.ok();
 		return ok;
 	}
 
