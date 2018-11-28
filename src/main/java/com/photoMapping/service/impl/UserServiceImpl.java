@@ -8,7 +8,7 @@ import com.photoMapping.model.User;
 import com.photoMapping.service.UserServiceApi;
 
 @Service
-public class UserServiceApiImpl implements UserServiceApi {
+public class UserServiceImpl implements UserServiceApi {
 	@Autowired
 	private UserDao userDao;
 

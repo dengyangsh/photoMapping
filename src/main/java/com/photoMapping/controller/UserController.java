@@ -1,4 +1,4 @@
-package com.photoMapping.user;
+package com.photoMapping.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +10,7 @@ import com.photoMapping.service.UserServiceApi;
 import com.photoMapping.util.Response;
 
 @RestController
-@RequestMapping(value = "user", method = RequestMethod.POST)
+@RequestMapping(value = "user", method = RequestMethod.GET)
 public class UserController {
 
 	@Autowired
