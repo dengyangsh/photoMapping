@@ -18,4 +18,9 @@ public class PhotoServiceImpl implements PhotoServiceApi {
 		return photoDao.findPhotoUrlByUserIdAndProvince(userId, province);
 	}
 
+	@Override
+	public void savePhoto(String url, Integer userId, String province) {
+		photoDao.save(url, userId, province);
+	}
+
 }

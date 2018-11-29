@@ -36,11 +36,16 @@ public class PhotoController {
 		// 参数判断
 		if (StringUtils.isEmpty(province) || userId == null) {
 			return Response.error(ErrorCode.ERROR, "参数为空请确认");
-
 		}
-		// 接受文件
 		String rootPath = "/usr/java/photo";
-		File dir = new File(rootPath + File.separator + userId + province);
+		// String rootPath = "f://";
+		String url = rootPath + File.separator + userId + File.separator + province;
+
+		// 数据库存储链接地址
+		photoServiceApi.savePhoto(url, userId, province);
+
+		// 接受文件
+		File dir = new File(url);
 		if (!dir.exists())
 			dir.mkdirs();
 		// 写文件到服务器
