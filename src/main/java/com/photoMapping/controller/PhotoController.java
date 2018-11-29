@@ -16,7 +16,7 @@ import com.photoMapping.service.PhotoServiceApi;
 import com.photoMapping.util.Response;
 
 @RestController
-@RequestMapping(value = "photo", method = RequestMethod.GET)
+@RequestMapping(value = "photo", method = RequestMethod.POST)
 public class PhotoController {
 
 	@Autowired
@@ -37,19 +37,21 @@ public class PhotoController {
 		if (StringUtils.isEmpty(province) || userId == null) {
 			return Response.error(ErrorCode.ERROR, "参数为空请确认");
 		}
-		String rootPath = "/usr/java/photo";
-		// String rootPath = "f://";
+		 String rootPath = "/usr/java/photo";
+//		String rootPath = "f:";
 		String url = rootPath + File.separator + userId + File.separator + province;
 
-		// 数据库存储链接地址
-		photoServiceApi.savePhoto(url, userId, province);
 
 		// 接受文件
 		File dir = new File(url);
 		if (!dir.exists())
 			dir.mkdirs();
+
+		// 数据库存储链接地址
+		String path = dir.getAbsolutePath() + File.separator + photo.getOriginalFilename();
+		photoServiceApi.savePhoto(path, userId, province);
 		// 写文件到服务器
-		File serverFile = new File(dir.getAbsolutePath() + File.separator + photo.getOriginalFilename());
+		File serverFile = new File(path);
 		photo.transferTo(serverFile);
 		Response ok = Response.ok();
 		return ok;
