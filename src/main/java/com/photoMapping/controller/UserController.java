@@ -11,7 +11,7 @@ import com.photoMapping.service.UserServiceApi;
 import com.photoMapping.util.Response;
 
 @RestController
-@RequestMapping(value = "user", method = RequestMethod.GET)
+@RequestMapping(value = "user", method = RequestMethod.POST)
 public class UserController {
 
 	@Autowired

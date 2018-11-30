@@ -18,8 +18,8 @@ public interface UserDao {
 	@Delete({ "delete from user", "where id = #{id,jdbcType=INTEGER}" })
 	int deleteByPrimaryKey(Integer id);
 
-	@Insert({ "insert into user (id, phone, ", "createTime, realName, ", "email, password)",
-			"values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, ",
+	@Insert({ "insert into user (phone, ", "createTime, realName, ", "email, password)",
+			"values (#{phone,jdbcType=VARCHAR}, ",
 			"#{createtime,jdbcType=TIMESTAMP}, #{realname,jdbcType=VARCHAR}, ",
 			"#{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})" })
 	int insert(User record);

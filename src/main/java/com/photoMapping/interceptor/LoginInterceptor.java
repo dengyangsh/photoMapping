@@ -24,8 +24,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object arg2) throws Exception {
-		String requestUri = req.getRequestURI();
-		if (requestUri.indexOf("register") > 0 || requestUri.indexOf("login") < 0) {
+		String requestUri = req.getRequestURL().toString();
+		if (requestUri.indexOf("register") > 0 || requestUri.indexOf("login") > 0) {
 			return true;
 		}
 
