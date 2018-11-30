@@ -16,10 +16,9 @@ public class UserController {
 	@Autowired
 	private UserServiceApi userServiceApi;
 
-	@RequestMapping(value = "getPhotos")
-	public Response getPhotos(Integer userId, String province) {
-		User findUser = userServiceApi.findUser(1);
+	@RequestMapping(value = "register")
+	public Response register(String phone, String realName,String email,String passWord) {
+		userServiceApi.register(phone, realName, passWord, email);
 		return Response.ok();
-
 	}
 }
