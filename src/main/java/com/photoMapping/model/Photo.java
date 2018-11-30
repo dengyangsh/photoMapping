@@ -1,14 +1,23 @@
 package com.photoMapping.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
-public class Photo {
+public class Photo implements Serializable {
 	private Integer id;
-	private Integer userId;
-	private String provice;
+
+	private Integer userid;
+
+	private String province;
+
 	private String city;
-	private LocalDateTime createTime;
+
+	private LocalDateTime createtime;
+
 	private String url;
+
+	private static final long serialVersionUID = 1L;
 
 	public Integer getId() {
 		return id;
@@ -18,20 +27,20 @@ public class Photo {
 		this.id = id;
 	}
 
-	public Integer getUserId() {
-		return userId;
+	public Integer getUserid() {
+		return userid;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setUserid(Integer userid) {
+		this.userid = userid;
 	}
 
-	public String getProvice() {
-		return provice;
+	public String getProvince() {
+		return province;
 	}
 
-	public void setProvice(String provice) {
-		this.provice = provice;
+	public void setProvince(String province) {
+		this.province = province;
 	}
 
 	public String getCity() {
@@ -42,12 +51,12 @@ public class Photo {
 		this.city = city;
 	}
 
-	public LocalDateTime getCreateTime() {
-		return createTime;
+	public LocalDateTime getCreatetime() {
+		return createtime;
 	}
 
-	public void setCreateTime(LocalDateTime createTime) {
-		this.createTime = createTime;
+	public void setCreatetime(LocalDateTime createtime) {
+		this.createtime = createtime;
 	}
 
 	public String getUrl() {
@@ -58,4 +67,20 @@ public class Photo {
 		this.url = url;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getClass().getSimpleName());
+		sb.append(" [");
+		sb.append("Hash = ").append(hashCode());
+		sb.append(", id=").append(id);
+		sb.append(", userid=").append(userid);
+		sb.append(", province=").append(province);
+		sb.append(", city=").append(city);
+		sb.append(", createtime=").append(createtime);
+		sb.append(", url=").append(url);
+		sb.append(", serialVersionUID=").append(serialVersionUID);
+		sb.append("]");
+		return sb.toString();
+	}
 }
