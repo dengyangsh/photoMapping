@@ -49,5 +49,8 @@ public interface UserDao {
 	int updateByPrimaryKey(User record);
 
 	@Select({ "select count(1) from user where phone = #{phone}" })
-	Integer selectByPhone(String phone);
+	Integer countByPhone(String phone);
+	
+	@Select({ "select * from user where phone = #{phone}" })
+	User selectByPhone(String phone);
 }

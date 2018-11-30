@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserServiceApi {
 			throw new RuntimeException("手机号码为空，无法注册");
 		}
 
-		Integer userNum = userDao.selectByPhone(phone);
-		if(userNum>0) {
+		Integer userNum = userDao.countByPhone(phone);
+		if (userNum > 0) {
 			throw new RuntimeException("用户已存在，不需要再次注册");
 		}
 
@@ -33,6 +33,24 @@ public class UserServiceImpl implements UserServiceApi {
 		user.setEmail(email);
 		user.setPhone(phone);
 		userDao.insert(user);
+	}
+
+	@Override
+	public User login(String phone, String passWord) {
+		if (StringUtils.isEmpty(phone)) {
+			throw new RuntimeException("手机号码为空");
+		}
+		if (StringUtils.isEmpty(passWord)) {
+			throw new RuntimeException("密码为空");
+		}
+		User user = userDao.selectByPhone(phone);
+		if(user==null) {
+			throw new RuntimeException("此用户不存在");
+		}
+		if(!passWord.equalsIgnoreCase(user.getPassword())) {
+			throw new RuntimeException("用户名或密码错误");
+		}
+		return user;
 	}
 
 }
