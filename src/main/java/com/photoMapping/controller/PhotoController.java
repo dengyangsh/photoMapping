@@ -20,6 +20,7 @@ import com.photoMapping.util.Response;
 
 @RestController
 @RequestMapping(value = "photo", method = RequestMethod.POST)
+
 public class PhotoController extends BaseController {
 
 	@Autowired
