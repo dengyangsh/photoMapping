@@ -20,8 +20,8 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "register")
 	public Response register(String phone, String realName, String email, String passWord, HttpServletRequest request) {
-
 		userServiceApi.register(phone, realName, passWord, email);
+		login(phone, passWord, request);
 		return Response.ok();
 	}
 
