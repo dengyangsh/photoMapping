@@ -40,8 +40,8 @@ public class PhotoController extends BaseController {
 	}
 
 	@RequestMapping(value = "uploadPhoto", method = RequestMethod.POST)
-	public Response uploadPhoto(@RequestParam("photo") MultipartFile photo, String province, HttpServletRequest request)
-			throws Exception {
+	public Response uploadPhoto(@RequestParam("photo") MultipartFile[] photos, String province,
+			HttpServletRequest request) throws Exception {
 		Response ok = Response.ok();
 		User loginUser = getLoginUser(request);
 		if (loginUser == null) {
@@ -52,21 +52,25 @@ public class PhotoController extends BaseController {
 		if (StringUtils.isEmpty(province)) {
 			return Response.error(ErrorCode.ERROR, "参数为空请确认");
 		}
-		String rootPath = "/usr/java/photo";
-		// String rootPath = "f:";
-		String url = rootPath + File.separator + loginUser.getId() + File.separator + province;
 
-		// 接受文件
-		File dir = new File(url);
-		if (!dir.exists())
-			dir.mkdirs();
+		for (MultipartFile photo : photos) {
+			// String rootPath = "/usr/java/photo";
+			String rootPath = "f:";
+			String url = rootPath + File.separator + loginUser.getId() + File.separator + province;
 
-		// 数据库存储链接地址
-		String path = dir.getAbsolutePath() + File.separator + photo.getOriginalFilename();
-		photoServiceApi.savePhoto(path, loginUser.getId(), province);
-		// 写文件到服务器
-		File serverFile = new File(path);
-		photo.transferTo(serverFile);
+			// 接受文件
+			File dir = new File(url);
+			if (!dir.exists())
+				dir.mkdirs();
+
+			// 数据库存储链接地址
+			String path = dir.getAbsolutePath() + File.separator + photo.getOriginalFilename();
+			photoServiceApi.savePhoto(path, loginUser.getId(), province);
+			// 写文件到服务器
+			File serverFile = new File(path);
+			photo.transferTo(serverFile);
+		}
+
 		return ok;
 	}
 
