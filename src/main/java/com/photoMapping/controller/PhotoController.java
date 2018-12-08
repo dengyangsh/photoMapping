@@ -40,7 +40,7 @@ public class PhotoController extends BaseController {
 	}
 
 	@RequestMapping(value = "uploadPhoto", method = RequestMethod.POST)
-	public Response uploadPhoto(@RequestParam("photo") MultipartFile[] photos, String province,
+	public Response uploadPhoto(@RequestParam("photos") MultipartFile[] photos, String province,
 			HttpServletRequest request) throws Exception {
 		Response ok = Response.ok();
 		User loginUser = getLoginUser(request);
