@@ -6,11 +6,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.photoMapping.constant.ErrorCode;
@@ -18,15 +19,15 @@ import com.photoMapping.model.User;
 import com.photoMapping.service.PhotoServiceApi;
 import com.photoMapping.util.Response;
 
-@RestController
+@Controller
 @RequestMapping(value = "photo", method = RequestMethod.POST)
-
 public class PhotoController extends BaseController {
 
 	@Autowired
 	private PhotoServiceApi photoServiceApi;
 
 	@RequestMapping(value = "provincePhoto")
+	@ResponseBody
 	public Response currentProvincePhoto(HttpServletRequest request, String province) {
 		Response ok = Response.ok();
 		User loginUser = getLoginUser(request);
@@ -40,6 +41,7 @@ public class PhotoController extends BaseController {
 	}
 
 	@RequestMapping(value = "uploadPhoto", method = RequestMethod.POST)
+	@ResponseBody
 	public Response uploadPhoto(@RequestParam("photos") MultipartFile[] photos, String province,
 			HttpServletRequest request) throws Exception {
 		Response ok = Response.ok();
