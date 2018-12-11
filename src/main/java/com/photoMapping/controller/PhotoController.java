@@ -56,9 +56,9 @@ public class PhotoController extends BaseController {
 		}
 
 		for (MultipartFile photo : photos) {
-			String rootPath = "/usr/java/static-web/photos";
+			String rootPath = "/usr/java/static-web";
 //			String rootPath = "f:";
-			String path =  loginUser.getId() + File.separator + province;
+			String path = "photos"+File.separator+ loginUser.getId() + File.separator + province;
 			String physicalPath =rootPath+File.separator+path ;
 			String file = File.separator+photo.getOriginalFilename();
 
