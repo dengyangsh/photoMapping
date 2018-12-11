@@ -60,7 +60,7 @@ public class PhotoController extends BaseController {
 //			String rootPath = "f:";
 			String path =  loginUser.getId() + File.separator + province;
 			String physicalPath =rootPath+File.separator+path ;
-			String file = photo.getOriginalFilename();
+			String file = File.separator+photo.getOriginalFilename();
 
 			// 接受文件
 			File dir = new File(physicalPath);
