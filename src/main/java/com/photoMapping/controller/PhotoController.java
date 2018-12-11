@@ -56,20 +56,21 @@ public class PhotoController extends BaseController {
 		}
 
 		for (MultipartFile photo : photos) {
-			String rootPath = "/usr/java/static-web";
+			String rootPath = "/usr/java/static-web/photos";
 //			String rootPath = "f:";
-			String url = rootPath + File.separator + loginUser.getId() + File.separator + province;
+			String path =  loginUser.getId() + File.separator + province;
+			String physicalPath =rootPath+File.separator+path ;
+			String file = photo.getOriginalFilename();
 
 			// 接受文件
-			File dir = new File(url);
+			File dir = new File(physicalPath);
 			if (!dir.exists())
 				dir.mkdirs();
 
 			// 数据库存储链接地址
-			String path = dir.getAbsolutePath() + File.separator + photo.getOriginalFilename();
-			photoServiceApi.savePhoto(path, loginUser.getId(), province);
+			photoServiceApi.savePhoto(path+ file, loginUser.getId(), province);
 			// 写文件到服务器
-			File serverFile = new File(path);
+			File serverFile = new File(physicalPath+ file);
 			photo.transferTo(serverFile);
 		}
 
