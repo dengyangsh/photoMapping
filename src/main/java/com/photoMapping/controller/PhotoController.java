@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -22,6 +24,8 @@ import com.photoMapping.util.Response;
 @Controller
 @RequestMapping(value = "photo", method = RequestMethod.POST)
 public class PhotoController extends BaseController {
+	
+	private static final Logger log = LoggerFactory.getLogger(PhotoController.class);
 
 	@Autowired
 	private PhotoServiceApi photoServiceApi;
@@ -75,6 +79,32 @@ public class PhotoController extends BaseController {
 		}
 
 		return ok;
+	}
+	
+	
+	@RequestMapping(value = "images/upload", method = RequestMethod.POST)
+	@ResponseBody
+	public Response imagesUpload(@RequestParam("photos") MultipartFile[] photos, String province,
+			HttpServletRequest request) throws Exception {
+		Response ok = Response.ok();
+		User loginUser = getLoginUser(request);
+		if (loginUser == null) {
+			ok.setBody("请先登录");
+			return ok;
+		}
+		// 参数判断
+		if (StringUtils.isEmpty(province)) {
+			return Response.error(ErrorCode.ERROR, "参数为空请确认");
+		}
+		
+		try {
+			Response response = photoServiceApi.savePhoto(photos, loginUser.getId(), province);
+			return response ;
+		} catch (Exception e) {
+			log.error("文件上传时出错",e);
+			return Response.error(ErrorCode.ERROR, "上传出错") ;
+		}
+		
 	}
 
 }
